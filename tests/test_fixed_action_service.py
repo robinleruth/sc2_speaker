@@ -1,12 +1,11 @@
 import unittest
-from unittest import TestCase
 from queue import Queue
 
 from app.domain.service.fixed_action_service import FixedActionService
 from app.infrastructure.connector.test_action_connector import TestActionConnector
 
 
-class FixedActionServiceTest(TestCase):
+class TestFixedActionService(unittest.TestCase):
     def setUp(self):
         pass
 
