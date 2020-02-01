@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from dataclasses import field
 
 from app.domain.model.action import Action
+from app.domain.service.action_connector import ActionConnector
 
 
 @dataclass
