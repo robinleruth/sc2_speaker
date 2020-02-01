@@ -19,6 +19,9 @@ class ActionService(metaclass=ABCMeta):
     elapsed_time: float = 0
     actions: List[Action] = field(default_factory=list)
 
+    def __call__(self):
+        self.run()
+
     def run(self):
         self.go()
 

@@ -7,13 +7,12 @@ from app.infrastructure.connector.test_action_connector import TestActionConnect
 
 class TestFixedActionService(unittest.TestCase):
     def setUp(self):
-        pass
+        print('Begin test fixed action service')
 
     def tearDown(self):
-        pass
+        print('End test fixed action service')
 
     def test_service(self):
-        print('Begin')
         queue = Queue()
         connector = TestActionConnector()
         service = FixedActionService(action_connector=connector,
@@ -21,7 +20,6 @@ class TestFixedActionService(unittest.TestCase):
         service.run()
         while not queue.empty():
             print(queue.get())
-        print('Done')
 
 
 if __name__ == '__main__':

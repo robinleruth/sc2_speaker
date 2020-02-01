@@ -16,6 +16,7 @@ class FixedActionService(ActionService):
     def go(self):
         logger.info('FixedActionService go !')
         self.populate_queue()
+        self.start_time = time.time()
         while not self.queue.empty():
             action: Action = self.queue.get()
             logger.info(f'Getting action : {action}')
