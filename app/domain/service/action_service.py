@@ -4,7 +4,6 @@ from abc import ABCMeta
 from abc import abstractmethod
 from typing import List
 from queue import Queue
-from threading import Thread
 from dataclasses import dataclass
 from dataclasses import field
 
@@ -13,7 +12,7 @@ from app.domain.service.action_connector import ActionConnector
 
 
 @dataclass
-class ActionService(Thread, metaclass=ABCMeta):
+class ActionService(metaclass=ABCMeta):
     action_connector: ActionConnector
     shared_queue: Queue
     start_time: float = time.time()

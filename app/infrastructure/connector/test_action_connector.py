@@ -5,9 +5,9 @@ from app.domain.model.action import Action
 
 
 class TestActionConnector(ActionConnector):
-    def get_action_list() -> List[Action]:
+    def get_action_list(self) -> List[Action]:
         a = Action(time=1, name="action1")
-        c = Action(time=2, name="action3")
-        b = Action(time=1, name="action2")
+        c = Action(time=2, name="action2")
+        b = Action(time=1, name="action3")
         lst = [a, b, c]
         return lst

@@ -18,10 +18,9 @@ class TestFixedActionService(unittest.TestCase):
         connector = TestActionConnector()
         service = FixedActionService(action_connector=connector,
                                      shared_queue=queue)
-        service.start()
-        service.join()
-        for elem in queue:
-            print(elem)
+        service.run()
+        while not queue.empty():
+            print(queue.get())
         self.assertEqual(True, True)
         print('Done')
 
