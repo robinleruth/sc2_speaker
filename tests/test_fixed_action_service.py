@@ -21,7 +21,6 @@ class TestFixedActionService(unittest.TestCase):
         service.run()
         while not queue.empty():
             print(queue.get())
-        self.assertEqual(True, True)
         print('Done')
 
 

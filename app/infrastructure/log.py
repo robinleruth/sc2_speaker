@@ -9,7 +9,7 @@ def create_logger():
     _logger.setLevel(logging.INFO)
     os.makedirs(app_config.LOG_FOLDER, exist_ok=True)
     fh = logging.FileHandler(app_config.LOG_FILE_PATH)
-    fmt = '%(asctime)s - %(name)s - %(levelname)s -%(message)s'
+    fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     formatter = logging.Formatter(fmt)
     fh.setFormatter(formatter)
     _logger.addHandler(fh)
