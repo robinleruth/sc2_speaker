@@ -1,8 +1,9 @@
+import time
+
 from queue import Queue
 from dataclasses import field
 from dataclasses import dataclass
 from typing import List
-import time
 
 from app.domain.service.action_service import ActionService
 from app.domain.model.action import Action
