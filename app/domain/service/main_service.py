@@ -7,8 +7,8 @@ from app.domain.service.fixed_action_service import FixedActionService
 from app.domain.service.action_connector import ActionConnector
 from app.domain.service.repetitive_action_service import RepetitiveActionService
 from app.domain.model.action import Action
-from app.infrastructure.connector.db_action_connector import DbFixedActionConnector
 from app.infrastructure.connector.db_repetitive_action_connector import DbRepetitiveActionConnector
+from app.infrastructure.connector.db_fixed_action_connector import DbFixedActionConnector
 
 
 class MainService:

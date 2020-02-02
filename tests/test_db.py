@@ -2,6 +2,7 @@ import unittest
 
 from app.infrastructure.db.db_session import transaction_context
 from app.infrastructure.db.action_model import Action
+from app.domain.service.action_type import ActionType
 
 
 class TestDb(unittest.TestCase):
@@ -13,7 +14,7 @@ class TestDb(unittest.TestCase):
 
     def test_db(self):
         with transaction_context() as session:
-            entry = Action(time=1, name="test")
+            entry = Action(time=1, name="test", action_type=ActionType.REPETITIVE_ACTION.value)
             session.add(entry)
         with transaction_context() as session:
             lst = session.query(Action).all()
