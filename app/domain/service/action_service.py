@@ -32,3 +32,6 @@ class ActionService(metaclass=ABCMeta):
     def get_action_list(self) -> List[Action]:
         self.actions = self.action_connector.get_action_list()
         return self.actions
+
+    def persist_entry(self, action: Action):
+        self.action_connector.persist_entry(action)
