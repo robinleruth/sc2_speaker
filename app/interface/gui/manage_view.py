@@ -13,5 +13,5 @@ class ManageView(Frame):
         lst = self.service.repetitive_action_service.get_action_list()
         self.repetitive_action_service_view = ActionListView(self, lst)
 
-        self.fixed_action_service_view.pack()
-        self.repetitive_action_service_view.pack()
+        self.fixed_action_service_view.grid(column=0, row=0)
+        self.repetitive_action_service_view.grid(column=2, row=0)

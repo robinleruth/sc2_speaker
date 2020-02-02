@@ -9,6 +9,7 @@ from dataclasses import field
 
 from app.domain.model.action import Action
 from app.domain.service.action_connector import ActionConnector
+from app.infrastructure.log import logger
 
 
 @dataclass
@@ -34,4 +35,5 @@ class ActionService(metaclass=ABCMeta):
         return self.actions
 
     def persist_entry(self, action: Action):
+        logger.info('Persist entry : {}'.format(action)
         self.action_connector.persist_entry(action)
