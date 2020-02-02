@@ -5,6 +5,8 @@ from dataclasses import field
 from queue import Queue
 
 from app.domain.service.action_service import ActionService
+from app.domain.service.param.param_service import ParamService
+from app.domain.service.param.param_name import ParamName
 from app.infrastructure.log import logger
 
 
@@ -12,9 +14,15 @@ from app.infrastructure.log import logger
 class RepetitiveActionService(ActionService):
     begin_time: float = 1
     repetitive_time: float = 40 # in seconds
+    param_service: ParamService = field(default_factory=ParamService)
 
     def go(self):
         logger.info('RepetitiveActionService go !')
+        try:
+            param = self.param_service.get_param(ParamName.BEGIN_TIME_REPETITIVE_ACTION)
+            self.begin_time = float(param.value)
+        except:
+            pass
         self.populate_action_list()
         self.start_time = time.time()
         while True:

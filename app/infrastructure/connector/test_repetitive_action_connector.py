@@ -10,3 +10,9 @@ class TestRepetitiveActionConnector(ActionConnector):
         c = Action(time=0, name="inject")
         lst = [a, c]
         return lst
+
+    def persist_entry(self, action: Action):
+        pass
+
+    def delete_entry(self, action: Action):
+        pass

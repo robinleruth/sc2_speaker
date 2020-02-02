@@ -11,3 +11,9 @@ class TestActionConnector(ActionConnector):
         b = Action(time=1, name="action3")
         lst = [a, b, c]
         return lst
+
+    def persist_entry(self, action: Action):
+        pass
+
+    def delete_entry(self, action: Action):
+        pass
