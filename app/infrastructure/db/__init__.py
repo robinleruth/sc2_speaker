@@ -13,4 +13,5 @@ Session = scoped_session(sessionmaker(bind=engine, autocommit=False,
                                        autoflush=True))
 
 from .action_model import Action
+from .param_model import Param
 Base.metadata.create_all(engine)
