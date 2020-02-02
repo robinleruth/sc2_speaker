@@ -28,3 +28,7 @@ class ActionService(metaclass=ABCMeta):
     @abstractmethod
     def go(self):
         pass
+
+    def get_action_list(self) -> List[Action]:
+        self.actions = self.action_connector.get_action_list()
+        return self.actions

@@ -6,6 +6,7 @@ from typing import List
 from app.domain.service.fixed_action_service import FixedActionService
 from app.domain.service.action_connector import ActionConnector
 from app.domain.service.repetitive_action_service import RepetitiveActionService
+from app.domain.service.action_type import ActionType
 from app.domain.model.action import Action
 from app.infrastructure.connector.db_repetitive_action_connector import DbRepetitiveActionConnector
 from app.infrastructure.connector.db_fixed_action_connector import DbFixedActionConnector
@@ -36,3 +37,11 @@ class MainService:
         while not self.queue.empty():
             lst.append(self.queue.get())
         return lst
+
+    def add_action(self, action: Action, action_type: ActionType):
+        if action_type is ActionType.FIXED_ACTION:
+            self.fixed_action_service.persist_entry(action)
+        elif action_type is ActionType.REPETITIVE_ACTION:
+            self.repetitive_action_service.persist_entry(action)
+        else:
+            raise Exception('Action Type not implemented')
