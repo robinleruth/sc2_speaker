@@ -15,3 +15,10 @@ class DbFixedActionConnector(ActionConnector):
             lst = list(filter(lambda x: x.action_type == ActionType.FIXED_ACTION, lst))
             lst_to_return = [Action(i.time, i.name) for i in lst]
         return lst_to_return
+
+    def persist_entry(self, action: Action):
+        with transaction_context() as session:
+            entry = ActionDb(time=action.time,
+                             name=action.name,
+                             action_type=ActionType.FIXED_ACTION.value)
+            session.add(entry)

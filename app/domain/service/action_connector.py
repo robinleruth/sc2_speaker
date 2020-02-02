@@ -7,5 +7,9 @@ from app.domain.model.action import Action
 
 class ActionConnector(metaclass=ABCMeta):
     @abstractmethod
-    def get_action_list() -> List[Action]:
+    def get_action_list(self) -> List[Action]:
+        pass
+
+    @abstractmethod
+    def persist_entry(self, action: Action):
         pass
