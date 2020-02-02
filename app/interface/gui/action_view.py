@@ -23,3 +23,6 @@ class ActionView(Frame):
     def delete_entry(self):
         self.list_parent.delete_entry(self.action)
         self.destroy()
+
+    def forget_delete_button(self):
+        self.delete_button.grid_forget()

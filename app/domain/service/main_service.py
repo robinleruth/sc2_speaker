@@ -29,6 +29,7 @@ class MainService:
         # Create some thread class in infrastructure to have some parallelism!
         t1 = Thread(target=self.fixed_action_service)
         t2 = Thread(target=self.repetitive_action_service)
+        t1.setDaemon(True)
         t2.setDaemon(True)
         t1.start()
         t2.start()
