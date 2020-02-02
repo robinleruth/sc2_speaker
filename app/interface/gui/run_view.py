@@ -9,6 +9,7 @@ from app.domain.service.main_service import MainService
 from app.interface.gui.aciton_list_view import ActionListView
 from app.interface.gui.action_view import ActionView
 from app.interface.gui.status_bar import StatusBar
+from app.interface.gui.speaker import Speaker
 
 
 class RunView(Frame):
@@ -49,6 +50,8 @@ class RunView(Frame):
                 view = ActionView(self.temp_frame, action)
                 view.forget_delete_button()
                 view.pack()
+                Speaker().add_to_queue(action.name)
+            Speaker().run_and_wait()
             time.sleep(1)
             if not self.is_running:
                 break
