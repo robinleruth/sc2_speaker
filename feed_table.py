@@ -6,11 +6,12 @@ from app.domain.service.action_type import ActionType
 
 
 if __name__ == '__main__':
-    lst_fixed = [Action(time=1, name="test"), Action(time=2, name="test"),
-                Action(time=3, name="test"), Action(time=4, name="test")]
+    lst_fixed = [Action(time=0, name="Let's go bro !"),
+                 Action(time=2, name="Make drone"),
+                 Action(time=4, name="Scout for expand")]
 
-    lst_rep = [Action(time=0, name="test"), Action(time=0, name="test"),
-            Action(time=0, name="test")]
+    lst_rep = [Action(time=0, name="creep"),
+               Action(time=0, name="inject")]
 
     service = MainService()
 
