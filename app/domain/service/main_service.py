@@ -7,14 +7,16 @@ from app.domain.service.fixed_action_service import FixedActionService
 from app.domain.service.action_connector import ActionConnector
 from app.domain.service.repetitive_action_service import RepetitiveActionService
 from app.domain.model.action import Action
+from app.infrastructure.connector.db_action_connector import DbFixedActionConnector
+from app.infrastructure.connector.db_repetitive_action_connector import DbRepetitiveActionConnector
 
 
 class MainService:
     fixed_action_service: FixedActionService
     repetitive_action_service: RepetitiveActionService
 
-    def __init__(self, fixed_action_connector: ActionConnector,
-                 repetitive_action_connector: ActionConnector):
+    def __init__(self, fixed_action_connector: ActionConnector=DbFixedActionConnector(),
+                 repetitive_action_connector: ActionConnector=DbRepetitiveActionConnector()):
         self.queue = Queue()
         self.fixed_action_service = FixedActionService(fixed_action_connector,
                                                        self.queue)
