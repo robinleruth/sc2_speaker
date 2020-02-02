@@ -37,3 +37,7 @@ class ActionService(metaclass=ABCMeta):
     def persist_entry(self, action: Action):
         logger.info('Persist entry : {}'.format(action))
         self.action_connector.persist_entry(action)
+
+    def delete_action(self, action: Action):
+        self.action_connector.delete_entry(action)
+        self.actions = self.action_connector.get_action_list()

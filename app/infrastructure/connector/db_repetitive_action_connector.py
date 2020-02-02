@@ -22,3 +22,9 @@ class DbRepetitiveActionConnector(ActionConnector):
                              name=action.name,
                              action_type=ActionType.REPETITIVE_ACTION.value)
             session.add(entry)
+
+    def delete_entry(self, action: Action):
+        with transaction_context() as session:
+            entry = session.query(ActionDb).filter_by(time=action.time,
+                                                      name=action.name).first()
+            session.delete(entry)

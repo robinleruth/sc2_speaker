@@ -10,6 +10,7 @@ from app.domain.service.action_type import ActionType
 from app.domain.model.action import Action
 from app.infrastructure.connector.db_repetitive_action_connector import DbRepetitiveActionConnector
 from app.infrastructure.connector.db_fixed_action_connector import DbFixedActionConnector
+from app.infrastructure.log import logger
 
 
 class MainService:
@@ -43,5 +44,14 @@ class MainService:
             self.fixed_action_service.persist_entry(action)
         elif action_type is ActionType.REPETITIVE_ACTION:
             self.repetitive_action_service.persist_entry(action)
+        else:
+            raise Exception('Action Type not implemented')
+
+    def delete_action(self, action: Action, action_type: ActionType):
+        logger.info('Deleting {}'.format(action))
+        if action_type is ActionType.FIXED_ACTION:
+            self.fixed_action_service.delete_action(action)
+        elif action_type is ActionType.REPETITIVE_ACTION:
+            self.repetitive_action_service.delete_action(action)
         else:
             raise Exception('Action Type not implemented')

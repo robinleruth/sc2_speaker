@@ -13,3 +13,7 @@ class ActionConnector(metaclass=ABCMeta):
     @abstractmethod
     def persist_entry(self, action: Action):
         pass
+
+    @abstractmethod
+    def delete_entry(self, action: Action):
+        pass
