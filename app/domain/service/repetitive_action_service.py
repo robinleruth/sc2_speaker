@@ -23,6 +23,11 @@ class RepetitiveActionService(ActionService):
             self.begin_time = float(param.value)
         except:
             pass
+        try:
+            param = self.param_service.get_param(ParamName.REPETITIVE_INTERVAL)
+            self.repetitive_time = float(param.value)
+        except:
+            pass
         self.populate_action_list()
         self.start_time = time.time()
         while True:
