@@ -35,5 +35,5 @@ class ActionService(metaclass=ABCMeta):
         return self.actions
 
     def persist_entry(self, action: Action):
-        logger.info('Persist entry : {}'.format(action)
+        logger.info('Persist entry : {}'.format(action))
         self.action_connector.persist_entry(action)
