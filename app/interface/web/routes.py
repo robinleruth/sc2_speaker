@@ -1,9 +1,19 @@
 from flask import Blueprint
+from flask import render_template
+from flask_nav.elements import Navbar
+from flask_nav.elements import View
+
+from . import nav
 
 
-bp = Blueprint(__name__, 'main')
+bp = Blueprint('main', __name__)
+
+
+@nav.navigation()
+def top():
+    return Navbar('SC2 Speaker', View('Index', 'main.index'))
 
 
 @bp.route('/')
 def index():
-    return 'Hello World'
+    return render_template('index.html')
