@@ -22,3 +22,6 @@ class ManageView(Frame):
 
     def delete_entry(self, action: Action, action_type: ActionType):
         self.service.delete_action(action, action_type)
+
+    def add_entry(self, action: Action, action_type: ActionType):
+        self.service.add_action(action, action_type)

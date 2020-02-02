@@ -6,9 +6,10 @@ from app.domain.model.action import Action
 
 
 class ActionView(Frame):
-    def __init__(self, parent, action: Action):
+    def __init__(self, parent, action: Action, list_parent=None):
         Frame.__init__(self, parent)
         self.parent = parent
+        self.list_parent = list_parent
         self.action = action
         self.name = Label(self, text=action.name)
         self.time = Label(self, text=action.time)
@@ -20,5 +21,5 @@ class ActionView(Frame):
         self.delete_button.grid(column=2, row=0)
 
     def delete_entry(self):
-        self.parent.delete_entry(self.action)
+        self.list_parent.delete_entry(self.action)
         self.destroy()
