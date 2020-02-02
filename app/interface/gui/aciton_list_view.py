@@ -50,7 +50,7 @@ class ActionListView(Frame):
         name = self.new_name.get()
         action = Action(time=time, name=name)
         self.parent.add_entry(action, self.action_type)
-        component = ActionView(self.list_frame, action)
+        component = ActionView(self.list_frame, action, self)
         component.pack()
         self.new_time.delete(0, 'end')
         self.new_name.delete(0, 'end')

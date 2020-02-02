@@ -17,6 +17,7 @@ class NavBar(Frame, metaclass=Singleton):
 
         Radiobutton(self, text='Start', variable=self.var, value=1, command=self.switch).pack()
         Radiobutton(self, text='Manage', variable=self.var, value=2, command=self.switch).pack()
+        Radiobutton(self, text='Param', variable=self.var, value=3, command=self.switch).pack()
 
     def switch(self):
         value = lookup_table[self.var.get()]
