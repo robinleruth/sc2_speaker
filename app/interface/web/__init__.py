@@ -32,5 +32,4 @@ def create_app() -> Flask:
     app.register_blueprint(action_bp)
 
     logger.info('start up')
-    logger.info(app_config.BASEDIR)
     return app

@@ -4,6 +4,7 @@ from flask import jsonify
 
 from app.infrastructure.db.db_session import transaction_context
 from app.infrastructure.db.action_model import Action
+from app.infrastructure.log import logger
 
 
 bp = Blueprint('action_related', __name__)
@@ -16,6 +17,7 @@ def actions(_id=None):
         if reqeust.method == 'DELETE':
             with transaction_context() as session:
                 to_del = session.query(Action).filter_by(id=_id).first()
+                logger.info(f'Deleting {to_del}')
                 session.delete(to_del)
         elif request.method == 'GET':
             with transaction_context() as session:
@@ -25,6 +27,7 @@ def actions(_id=None):
         elif request.method == 'PUT':
             with transaction_context() as session:
                 to_update = session.query(Action).filter_by(id=_id).first()
+                logger.info(f'Updating {to_update} with : {request.json}')
                 to_update.__dict__.update(**request.json)
     else:
         if request.method == 'GET':
@@ -37,6 +40,7 @@ def actions(_id=None):
                 new_action = Action(**request.json)
                 session.add(new_action)
                 session.commit()
+                logger.info(f'Creating {new_action}')
                 j = new_action.serialize
             return jsonify(j)
     return '', 200
