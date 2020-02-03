@@ -28,6 +28,8 @@ def create_app() -> Flask:
     app.register_blueprint(main_bp)
     from app.interface.web.stream_logs import bp as stream_bp
     app.register_blueprint(stream_bp)
+    from app.interface.web.action_related import bp as action_bp
+    app.register_blueprint(action_bp)
 
     logger.info('start up')
     logger.info(app_config.BASEDIR)

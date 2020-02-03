@@ -3,5 +3,6 @@
 var app = app || {};
 
 app.ColAction = Backbone.Collection.extend({
-    model: app.Action
+    model: app.Action,
+    url: '/api/v1/actions'
 });

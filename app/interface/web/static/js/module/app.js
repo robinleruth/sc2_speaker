@@ -6,4 +6,5 @@ var app = app || {};
     app.colAction = new app.ColAction();
 
     app.colActionView = new app.ColActionView({collection: app.colAction});
+    app.colAction.fetch();
 })();

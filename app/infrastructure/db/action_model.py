@@ -16,3 +16,12 @@ class Action(Base):
 
     def __repr__(self):
         return '<Action {} - {}>'.format(str(self.time), self.name)
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'time': self.time,
+            'name': self.name,
+            'action_type': self.action_type
+        }
