@@ -11,7 +11,11 @@ bp = Blueprint('main', __name__)
 
 @nav.navigation()
 def top():
-    return Navbar('SC2 Speaker', View('Index', 'main.index'))
+    return Navbar('SC2 Speaker',
+                  View('Index', 'main.index'),
+                  View('Admin', 'admin.index'),
+                  View('Logs', 'stream_log.stream_log'),
+                  )
 
 
 @bp.route('/')
