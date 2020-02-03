@@ -24,3 +24,8 @@ Title
 {% block navbar %}
 {{ nav.top.render() }}
 {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {% include '_js_import.html' %}
+{% endblock %}
