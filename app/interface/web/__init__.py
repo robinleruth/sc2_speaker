@@ -8,6 +8,7 @@ from app.infrastructure.config import app_config
 from app.infrastructure.db import Session
 from app.infrastructure.db.param_model import Param
 from app.infrastructure.db.action_model import Action
+from app.infrastructure.log import logger
 
 nav = Nav()
 bootstrap = Bootstrap()
@@ -28,4 +29,5 @@ def create_app() -> Flask:
     from app.interface.web.stream_logs import bp as stream_bp
     app.register_blueprint(stream_bp)
 
+    logger.info('start up')
     return app

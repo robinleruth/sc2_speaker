@@ -5,6 +5,7 @@ assert 'APP_ENV' in os.environ, 'MAKE SURE TO SET AN ENVIRONMENT'
 
 
 class Config:
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret'
     SQL_URI = 'sqlite:///app.db'
     LOG_FOLDER = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'logs')
     LOG_FILENAME = 'app.log'
