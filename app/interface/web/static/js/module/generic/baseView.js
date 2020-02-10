@@ -14,6 +14,7 @@ app.BaseView = Backbone.View.extend({
     initialize: function(){
         this.listenTo(this.model, 'change', this.render);
         this.listenTo(this.model, 'destroy', this.remove);
+        this.listenTo(this.model, 're-render', this.render);
     },
     render: function(){
         this.$el.html(this.template(this.model.toJSON()));
@@ -42,6 +43,5 @@ app.BaseView = Backbone.View.extend({
         this.model.save(j);
         this.model.toVisualOne(this.attributeToChange);
         this.parent.removeClass('editing');
-        this.model.trigger('re-render');
     },
 });

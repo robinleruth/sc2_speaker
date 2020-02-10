@@ -15,9 +15,15 @@ def top():
                   View('Index', 'main.index'),
                   View('Admin', 'admin.index'),
                   View('Logs', 'stream_log.stream_log'),
+                  View('Temp', 'main.temp'),
                   )
 
 
 @bp.route('/')
 def index():
     return render_template('index.html')
+
+
+@bp.route('/temp')
+def temp():
+    return render_template('temp.html')

@@ -8,7 +8,7 @@ app.ColBaseView = Backbone.View.extend({
     },
     initialize: function(){
         this.listenTo(this.collection, 'add', this.addOne);
-        this.listenTo(this.collection, 'remove', this.render);
+        // this.listenTo(this.collection, 'remove', this.render);
         this.listenTo(this.collection, 're-render', this.render);
         this.render();
     },
