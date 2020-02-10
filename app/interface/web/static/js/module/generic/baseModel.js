@@ -20,7 +20,7 @@ app.BaseModel = Backbone.Model.extend({
             $.ajax({
                 url: '',
                 type: 'POST',
-                data: JSON.stringify(j);
+                data: JSON.stringify(j),
                 contentType: 'application/json',
                 success: function(data){
                     model.save(data);
@@ -35,6 +35,6 @@ app.BaseModel = Backbone.Model.extend({
         return String(number).replace(/,/g, '');
     },
     numberWithCommas: function(x){
-        return x.toString().replace(/\B(?=(\d{3})+(?\d))/g, ';');
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ';');
     },
 });

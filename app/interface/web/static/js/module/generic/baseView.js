@@ -4,7 +4,7 @@ var app = app || {};
 
 app.BaseView = Backbone.View.extend({
     tagName: 'div',
-    className: 'row',
+    className: '',
     events: {
         'click .delete': 'clear',
         'click .parent': 'edit',
@@ -38,7 +38,7 @@ app.BaseView = Backbone.View.extend({
         var value = this.input.val();
         var attr = this.parent;
         var j = {};
-        j[attr] = value;
+        j[this.attributeToChange] = value;
         this.model.save(j);
         this.model.toVisualOne(this.attributeToChange);
         this.parent.removeClass('editing');
