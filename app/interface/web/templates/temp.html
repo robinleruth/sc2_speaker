@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+<h1>Index</h1>
+<div id="temp"></div>
+<style>
+    .parent .view {
+        display: block;
+    }
+    .parent .edit {
+        display: none;
+    }
+    .parent.editing .view {
+        display: none;
+    }
+    .parent.editing .edit {
+        display: block;
+    }
+</style>
+<script type="text/template" id="generic_view_template">
+    <div class="parent notional">
+        <div class="view"><%= notional %></div>
+        <input class="edit" value="<%= notional %>" />
+    </div>
+</script>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+
+    <script src="{{ url_for('static', filename='js/module/generic/baseModel.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/module/generic/baseView.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/module/generic/colBaseView.js')}}"></script>
+
+    <script src="{{ url_for('static', filename='js/module/temp/temp.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/module/temp/colTemp.js')}}"></script>
+
+    <script src="{{ url_for('static', filename='js/module/temp/viewTemp.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/module/temp/colViewTemp.js')}}"></script>
+
+    <script src="{{ url_for('static', filename='js/module/temp/app.js')}}"></script>
+{% endblock %}
+

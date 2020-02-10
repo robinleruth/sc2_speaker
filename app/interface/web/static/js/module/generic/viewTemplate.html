@@ -1,0 +1,20 @@
+<style>
+    .parent .view {
+        display: block;
+    }
+    .parent .edit {
+        display: none;
+    }
+    .parent.editing .view {
+        display: none;
+    }
+    .parent.editing .edit {
+        display: block;
+    }
+</style>
+<script type="text/template" id="generic_view_template">
+    <div class="parent notional">
+        <p class="view"></p>
+        <input class="edit" />
+    </div>
+</script>
