@@ -14,7 +14,7 @@ bp = Blueprint('action_related', __name__)
 @bp.route('/api/v1/actions/<int:id>', methods=['DELETE', 'PUT', 'GET'])
 def actions(_id=None):
     if _id:
-        if reqeust.method == 'DELETE':
+        if request.method == 'DELETE':
             with transaction_context() as session:
                 to_del = session.query(Action).filter_by(id=_id).first()
                 logger.info(f'Deleting {to_del}')
