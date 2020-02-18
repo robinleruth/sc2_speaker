@@ -2,6 +2,7 @@ import os
 import logging
 
 from logging.handlers import RotatingFileHandler
+from logging import StreamHandler
 
 from app.infrastructure.config import app_config
 
@@ -15,6 +16,9 @@ def create_logger():
     formatter = logging.Formatter(fmt)
     fh.setFormatter(formatter)
     _logger.addHandler(fh)
+    st = StreamHandler()
+    st.setFormatter(formatter)
+    _logger.addHandler(st)
     return _logger
 
 
