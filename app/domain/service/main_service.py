@@ -10,6 +10,8 @@ from app.domain.service.action_type import ActionType
 from app.domain.model.action import Action
 from app.infrastructure.connector.db_repetitive_action_connector import DbRepetitiveActionConnector
 from app.infrastructure.connector.db_fixed_action_connector import DbFixedActionConnector
+from app.infrastructure.connector.fixed_connector_factory import fixed_connector_factory
+from app.infrastructure.connector.repetitive_connector_factory import repetitive_connector_factory
 from app.infrastructure.log import logger
 
 
@@ -17,8 +19,8 @@ class MainService:
     fixed_action_service: FixedActionService
     repetitive_action_service: RepetitiveActionService
 
-    def __init__(self, fixed_action_connector: ActionConnector=DbFixedActionConnector(),
-                 repetitive_action_connector: ActionConnector=DbRepetitiveActionConnector()):
+    def __init__(self, fixed_action_connector: ActionConnector=fixed_connector_factory(),
+                 repetitive_action_connector: ActionConnector=repetitive_connector_factory()):
         self.queue = Queue()
         self.fixed_action_service = FixedActionService(fixed_action_connector,
                                                        self.queue)

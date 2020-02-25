@@ -1,10 +1,15 @@
+import time
+
 from flask import Blueprint
 from flask import request
 from flask import jsonify
+from queue import Queue
 
 from app.infrastructure.db.db_session import transaction_context
 from app.infrastructure.db.action_model import Action
 from app.infrastructure.log import logger
+from app.interface.web.task import async_task
+from app.domain.service.main_service import MainService
 
 
 bp = Blueprint('action_related', __name__)
@@ -46,3 +51,18 @@ def actions(_id=None):
                 j = new_action.serialize
             return jsonify(j)
     return '', 200
+
+
+@bp.route('/api/v1/run')
+@async_task
+def run(queue: Queue, queue_from_client: Queue):
+    service = MainService()
+    service.run()
+    while True:
+        if not queue_from_client.empty() and queue_from_client.get() == 'STOP':
+            break
+        lst = service.get_action_from_queue()
+        for i in lst:
+            queue.put(i)
+        time.sleep(1)
+    return jsonify({'response': 'ok'})

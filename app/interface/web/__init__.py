@@ -16,9 +16,9 @@ bootstrap = Bootstrap()
 admin = Admin()
 
 
-def create_app() -> Flask:
+def create_app(config=app_config) -> Flask:
     app = Flask(__name__)
-    app.config.from_object(app_config)
+    app.config.from_object(config)
     nav.init_app(app)
     bootstrap.init_app(app)
     admin.init_app(app)
@@ -32,6 +32,8 @@ def create_app() -> Flask:
     app.register_blueprint(stream_bp)
     from app.interface.web.action_related import bp as action_bp
     app.register_blueprint(action_bp)
+    from app.interface.web.task import bp as task_bp
+    app.register_blueprint(task_bp)
 
     logger.info('start up')
     return app
