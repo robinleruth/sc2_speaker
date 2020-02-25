@@ -6,6 +6,7 @@ from flask_admin.contrib.sqla import ModelView
 
 from app.infrastructure.config import app_config
 from app.infrastructure.db import Session
+from app.infrastructure.db.log import Log
 from app.infrastructure.db.param_model import Param
 from app.infrastructure.db.action_model import Action
 from app.infrastructure.log import logger
@@ -23,6 +24,7 @@ def create_app() -> Flask:
     admin.init_app(app)
     admin.add_view(ModelView(Action, Session))
     admin.add_view(ModelView(Param, Session))
+    admin.add_view(ModelView(Log, Session))
 
     from app.interface.web.routes import bp as main_bp
     app.register_blueprint(main_bp)
