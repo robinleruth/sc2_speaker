@@ -1,8 +1,19 @@
 <script type="text/template" id="action_view_template">
-    <%= id %> | 
-    <%= time %> | 
-    <%= name %> |
-    <%= action_type %> 
+    <div class="d-flex">
+        <div class="parent time">
+            <p class="view"><%= time %></p>
+            <input class="edit" value="<%= time %>" />
+        </div>
+        <div class="parent name">
+            <p class="view"><%= name %></p>
+            <input class="edit" value="<%= name %>" />
+        </div>
+        <div class="parent action_type">
+            <p class="view"><%= action_type %></p>
+            <input class="edit" value="<%= action_type %>" />
+        </div>
+        <div class="delete">DELETE</div>
+    </div>
 </script>
 
 <script src="{{ url_for('static', filename='js/lib/underscore-min.js')}}"></script>

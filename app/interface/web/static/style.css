@@ -1,0 +1,12 @@
+.parent .view {
+    display: block;
+}
+.parent .edit {
+    display: none;
+}
+.parent.editing .view {
+    display: none;
+}
+.parent.editing .edit {
+    display: block;
+}

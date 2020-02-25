@@ -11,7 +11,7 @@ bp = Blueprint('action_related', __name__)
 
 
 @bp.route('/api/v1/actions', methods=['DELETE', 'PUT', 'GET', 'POST'])
-@bp.route('/api/v1/actions/<int:id>', methods=['DELETE', 'PUT', 'GET'])
+@bp.route('/api/v1/actions/<int:_id>', methods=['DELETE', 'PUT', 'GET'])
 def actions(_id=None):
     if _id:
         if request.method == 'DELETE':
@@ -28,7 +28,9 @@ def actions(_id=None):
             with transaction_context() as session:
                 to_update = session.query(Action).filter_by(id=_id).first()
                 logger.info(f'Updating {to_update} with : {request.json}')
-                to_update.__dict__.update(**request.json)
+                # to_update.__dict__.update(**request.json)
+                for k, v in request.json.items():
+                    setattr(to_update, k, v)
     else:
         if request.method == 'GET':
             with transaction_context() as session:
