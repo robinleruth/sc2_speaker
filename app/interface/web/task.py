@@ -29,7 +29,7 @@ def before_first_task():
     def clean_old_task():
         global tasks
         while True:
-            five_min_ago = timestamp() -1
+            five_min_ago = timestamp() - 5 * 60
             tasks = {_id: task for _id, task in tasks.items() if 't' not in task
                      or task['t'] > five_min_ago}
             time.sleep(60)
