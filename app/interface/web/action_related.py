@@ -24,6 +24,7 @@ def actions(_id=None):
                 to_del = session.query(Action).filter_by(id=_id).first()
                 logger.info(f'Deleting {to_del}')
                 session.delete(to_del)
+            return '', 204
         elif request.method == 'GET':
             with transaction_context() as session:
                 to_ret = session.query(Action).filter_by(id=_id).first()
@@ -31,6 +32,7 @@ def actions(_id=None):
             return jsonify(j)
         elif request.method == 'PUT':
             with transaction_context() as session:
+                session.expire_on_commit = False
                 to_update = session.query(Action).filter_by(id=_id).first()
                 logger.info(f'Updating {to_update} with : {request.json}')
                 # to_update.__dict__.update(**request.json)
@@ -44,12 +46,13 @@ def actions(_id=None):
             return jsonify(lst)
         elif request.method == 'POST':
             with transaction_context() as session:
+                session.expire_on_commit = False
                 new_action = Action(**request.json)
                 session.add(new_action)
                 session.commit()
                 logger.info(f'Creating {new_action}')
                 j = new_action.serialize
-            return jsonify(j)
+            return jsonify(j), 201
     return '', 200
 
 
@@ -66,3 +69,4 @@ def run(queue: Queue, queue_from_client: Queue):
             queue.put(i)
         time.sleep(1)
     return jsonify({'response': 'ok'})
+

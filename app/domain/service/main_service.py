@@ -19,7 +19,8 @@ class MainService:
     fixed_action_service: FixedActionService
     repetitive_action_service: RepetitiveActionService
 
-    def __init__(self, fixed_action_connector: ActionConnector=fixed_connector_factory(),
+    def __init__(self,
+                 fixed_action_connector: ActionConnector=fixed_connector_factory(),
                  repetitive_action_connector: ActionConnector=repetitive_connector_factory()):
         self.queue = Queue()
         self.fixed_action_service = FixedActionService(fixed_action_connector,
