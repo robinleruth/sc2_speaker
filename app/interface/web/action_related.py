@@ -38,6 +38,7 @@ def actions(_id=None):
                 # to_update.__dict__.update(**request.json)
                 for k, v in request.json.items():
                     setattr(to_update, k, v)
+                session.add(to_update)
     else:
         if request.method == 'GET':
             with transaction_context() as session:
