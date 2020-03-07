@@ -5,7 +5,7 @@ var app = app || {};
 app.ActionView = Backbone.View.extend({
     template: _.template($('#action_view_template').html()),
     tagName: 'div',
-    className: '',
+    className: 'row',
     events: {
         'click .delete': 'clear',
         'click .parent': 'edit',

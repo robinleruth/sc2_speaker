@@ -8,7 +8,7 @@ from app.infrastructure.config import app_config
 
 Base = declarative_base()
 
-engine = create_engine(app_config.SQL_URI)
+engine = create_engine(app_config.SQL_URI, connect_args={'check_same_thread': False})
 Session = scoped_session(sessionmaker(bind=engine, autocommit=False, autoflush=True))
 
 from .action_model import Action

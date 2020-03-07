@@ -15,7 +15,7 @@ class Action(Base):
     action_type = Column(String)
 
     def __repr__(self):
-        return '<Action {} - {}>'.format(str(self.time), self.name)
+        return '<{} : Action {} - {}>'.format(str(self.id), str(self.time), self.name)
 
     @property
     def serialize(self):

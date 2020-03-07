@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block title %}
-Title
+SC2 Speaker
 {% endblock %}
 
 {% block content %}
@@ -21,9 +21,9 @@ Title
     {% endfor %}
     {% endif %}
     {% endwith %}
+    {% block app_content %}
+    {% endblock %}
 </div>
-{% block app_content %}
-{% endblock %}
 {% endblock %}
 
 {% block navbar %}
