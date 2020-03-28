@@ -1,43 +1,40 @@
 {% extends 'base.html' %}
 
 {% block app_content %}
-<h1>Index</h1>
-<div id="temp"></div>
-<style>
-    .parent .view {
-        display: block;
-    }
-    .parent .edit {
-        display: none;
-    }
-    .parent.editing .view {
-        display: none;
-    }
-    .parent.editing .edit {
-        display: block;
-    }
-</style>
-<script type="text/template" id="generic_view_template">
-    <div class="parent notional">
-        <div class="view"><%= notional %></div>
-        <input class="edit" value="<%= notional %>" />
-    </div>
-</script>
+    <pre id="output"></pre>
+    <script>
+        var output = document.getElementById('output');
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/stream_run');
+        xhr.send();
+        var temp = '';
+        function getDifference(a, b)
+        {
+            var i = 0;
+            var j = 0;
+            var result = "";
+
+            while (j < b.length)
+            {
+            if (a[i] != b[j] || i == a.length)
+                result += b[j];
+            else
+                i++;
+            j++;
+            }
+            return result;
+        }
+        setInterval(function(){
+            // output.textContent = xhr.responseText;
+            if(temp.trim() !== xhr.responseText.trim()){
+                var msg_to_speak = getDifference(temp.trim(), xhr.responseText.trim());
+                msg_to_speak = msg_to_speak.replace(/\d{1}:\d{2}:\d{2} : /g, '')
+                var msg = new SpeechSynthesisUtterance(msg_to_speak);
+                window.speechSynthesis.speak(msg);
+                output.textContent = xhr.responseText;
+                window.scrollTo(0,document.body.scrollHeight);
+            }
+            temp = output.textContent;
+        }, 1000);
+    </script>
 {% endblock %}
-
-{% block scripts %}
-    {{ super() }}
-
-    <script src="{{ url_for('static', filename='js/module/generic/baseModel.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/module/generic/baseView.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/module/generic/colBaseView.js')}}"></script>
-
-    <script src="{{ url_for('static', filename='js/module/temp/temp.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/module/temp/colTemp.js')}}"></script>
-
-    <script src="{{ url_for('static', filename='js/module/temp/viewTemp.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/module/temp/colViewTemp.js')}}"></script>
-
-    <script src="{{ url_for('static', filename='js/module/temp/app.js')}}"></script>
-{% endblock %}
-

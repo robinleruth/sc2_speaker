@@ -12,10 +12,10 @@ bp = Blueprint('main', __name__)
 @nav.navigation()
 def top():
     return Navbar('SC2 Speaker',
-                  View('Index', 'main.index'),
+                  View('Handle actions', 'main.index'),
                   View('Admin', 'admin.index'),
                   View('Logs', 'stream_log.stream_log'),
-                  View('Temp', 'main.temp'),
+                  View('Run', 'main.temp'),
                   )
 
 

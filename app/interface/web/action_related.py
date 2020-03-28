@@ -1,8 +1,10 @@
 import time
+import datetime as dt
 
 from flask import Blueprint
 from flask import request
 from flask import jsonify
+from flask import Response
 from queue import Queue
 
 from app.infrastructure.db.db_session import transaction_context
@@ -71,3 +73,15 @@ def run(queue: Queue, queue_from_client: Queue):
         time.sleep(1)
     return jsonify({'response': 'ok'})
 
+
+@bp.route('/stream_run')
+def stream_run():
+    def gen():
+        service = MainService()
+        service.run()
+        while True:
+            lst = service.get_action_from_queue()
+            for i in lst:
+                yield str(dt.timedelta(seconds=int(i.time))) + ' : ' + i.name + '\n'
+            time.sleep(1)
+    return Response(gen())
