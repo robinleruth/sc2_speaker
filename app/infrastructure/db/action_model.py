@@ -2,6 +2,7 @@ from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import Float
 from sqlalchemy import String
+from sqlalchemy import ForeignKey
 
 from app.infrastructure.db import Base
 
@@ -13,6 +14,7 @@ class Action(Base):
     time = Column(Float)
     name = Column(String)
     action_type = Column(String)
+    build_order_id = Column(Integer, ForeignKey('build.id'))
 
     def __repr__(self):
         return '<{} : Action {} - {}>'.format(str(self.id), str(self.time), self.name)

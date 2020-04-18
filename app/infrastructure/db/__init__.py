@@ -11,6 +11,7 @@ Base = declarative_base()
 engine = create_engine(app_config.SQL_URI, connect_args={'check_same_thread': False})
 Session = scoped_session(sessionmaker(bind=engine, autocommit=False, autoflush=True))
 
+from .build_order import BuildOrder
 from .action_model import Action
 from .param_model import Param
 from .log import Log

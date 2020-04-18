@@ -6,6 +6,7 @@ from flask_admin.contrib.sqla import ModelView
 
 from app.infrastructure.config import app_config
 from app.infrastructure.db import Session
+from app.infrastructure.db.build_order import BuildOrder
 from app.infrastructure.db.log import Log
 from app.infrastructure.db.param_model import Param
 from app.infrastructure.db.action_model import Action
@@ -23,6 +24,7 @@ def create_app(config=app_config) -> Flask:
     bootstrap.init_app(app)
     admin.init_app(app)
     admin.add_view(ModelView(Action, Session))
+    admin.add_view(ModelView(BuildOrder, Session))
     admin.add_view(ModelView(Param, Session))
     admin.add_view(ModelView(Log, Session))
 
