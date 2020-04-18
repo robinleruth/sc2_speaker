@@ -25,5 +25,6 @@ class Action(Base):
             'id': self.id,
             'time': self.time,
             'name': self.name,
-            'action_type': self.action_type
+            'action_type': self.action_type,
+            'build_order_id': self.build_order_id
         }

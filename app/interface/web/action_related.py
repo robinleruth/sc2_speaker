@@ -9,6 +9,7 @@ from queue import Queue
 
 from app.infrastructure.db.db_session import transaction_context
 from app.infrastructure.db.action_model import Action
+from app.infrastructure.db.build_order import BuildOrder
 from app.infrastructure.log import logger
 from app.interface.web.task import async_task
 from app.domain.service.main_service import MainService
@@ -17,9 +18,32 @@ from app.domain.service.main_service import MainService
 bp = Blueprint('action_related', __name__)
 
 
-@bp.route('/api/v1/actions', methods=['DELETE', 'PUT', 'GET', 'POST'])
-@bp.route('/api/v1/actions/<int:_id>', methods=['DELETE', 'PUT', 'GET'])
-def actions(_id=None):
+@bp.route('/api/v1/get_all_build_orders_name')
+def get_all_build_orders_name():
+    with transaction_context() as session:
+        lst = session.query(BuildOrder).all()
+        lst = [i.name for i in lst]
+    return jsonify(lst)
+
+
+@bp.route('/api/v1/create_new_build_order', methods=['POST'])
+def create_new_build_order():
+    name = request.form['name']
+    with transaction_context() as session:
+        session.expire_on_commit = False
+        lst = session.query(BuildOrder).filter_by(name=name).all()
+        if len(lst) == 0:
+            entry = BuildOrder(name=name)
+            session.add(entry)
+        else:
+            entry = lst[0]
+    j = entry.serialize
+    return jsonify(j)
+
+
+@bp.route('/api/v1/actions/<build_order>', methods=['DELETE', 'PUT', 'GET', 'POST'])
+@bp.route('/api/v1/actions/<build_order>/<int:_id>', methods=['DELETE', 'PUT', 'GET'])
+def actions(build_order=None, _id=None):
     if _id:
         if request.method == 'DELETE':
             with transaction_context() as session:
@@ -44,7 +68,7 @@ def actions(_id=None):
     else:
         if request.method == 'GET':
             with transaction_context() as session:
-                lst = session.query(Action).all()
+                lst = session.query(BuildOrder).filter_by(name=build_order).first().actions
                 lst = [i.serialize for i in lst]
             return jsonify(lst)
         elif request.method == 'POST':

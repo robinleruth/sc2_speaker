@@ -7,7 +7,8 @@ app.Action = Backbone.Model.extend({
         return {
             time: 0,
             name: "Name",
-            action_type: "fixed_action"
+            action_type: "fixed_action",
+            build_order_id: 0
         };
     }
 });
