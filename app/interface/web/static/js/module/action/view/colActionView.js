@@ -95,6 +95,7 @@ app.ColActionView = Backbone.View.extend({
         });
     },
     launch: function() {
+
             var output = this.$('#output').get()[0];
             var xhr = new XMLHttpRequest();
             var e = this.$('.dropdown').get()[0];
@@ -125,6 +126,8 @@ app.ColActionView = Backbone.View.extend({
                         var msg_to_speak = getDifference(temp_msg.trim(), xhr.responseText.trim());
                         msg_to_speak = msg_to_speak.replace(/\d{1}:\d{2}:\d{2} : /g, '')
                         var msg = new SpeechSynthesisUtterance(msg_to_speak);
+                        var voices = window.speechSynthesis.getVoices();
+                        msg.voice = voices.filter(function(voice) { return voice.name == 'Google US English'; })[0];
                         window.speechSynthesis.speak(msg);
                         output.textContent = xhr.responseText;
                         window.scrollTo(0,document.body.scrollHeight);
