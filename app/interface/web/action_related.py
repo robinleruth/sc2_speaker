@@ -11,6 +11,7 @@ from app.infrastructure.db.db_session import transaction_context
 from app.infrastructure.db.action_model import Action
 from app.infrastructure.db.build_order import BuildOrder
 from app.infrastructure.log import logger
+from app.infrastructure.connector.db_fixed_action_connector import DbFixedActionConnector
 from app.interface.web.task import async_task
 from app.domain.service.main_service import MainService
 
@@ -100,8 +101,10 @@ def run(queue: Queue, queue_from_client: Queue):
 
 @bp.route('/stream_run')
 def stream_run():
+    build_order_name = request.args['name']
+    fixed_action_connector = DbFixedActionConnector(build_order_name)
     def gen():
-        service = MainService()
+        service = MainService(fixed_action_connector)
         service.run()
         while True:
             lst = service.get_action_from_queue()

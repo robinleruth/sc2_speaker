@@ -7,6 +7,7 @@ app.ColActionView = Backbone.View.extend({
     events: {
         'click .new_one': 'create',
         'click .create_new_build': 'display_input',
+        'click .launch': 'launch',
         'blur .build_order_name': 'fetch_actions',
         'blur .dropdown': 'fetch_actions',
         'blur #new_build_name': 'create_new_build_order',
@@ -92,5 +93,44 @@ app.ColActionView = Backbone.View.extend({
                 view.render();
             },
         });
+    },
+    launch: function() {
+            var output = this.$('#output').get()[0];
+            var xhr = new XMLHttpRequest();
+            var e = this.$('.dropdown').get()[0];
+            var name = e.options[e.selectedIndex].text;
+            xhr.open('GET', '/stream_run?name=' + name);
+            xhr.send();
+            var temp_msg = '';
+            function getDifference(a, b)
+            {
+                var i = 0;
+                var j = 0;
+                var result = "";
+
+                while (j < b.length)
+                {
+                if (a[i] != b[j] || i == a.length)
+                    result += b[j];
+                else
+                    i++;
+                j++;
+                }
+                return result;
+            }
+            (function(temp_msg){
+                setInterval(function(){
+                    // output.textContent = xhr.responseText;
+                    if(temp_msg.trim() !== xhr.responseText.trim()){
+                        var msg_to_speak = getDifference(temp_msg.trim(), xhr.responseText.trim());
+                        msg_to_speak = msg_to_speak.replace(/\d{1}:\d{2}:\d{2} : /g, '')
+                        var msg = new SpeechSynthesisUtterance(msg_to_speak);
+                        window.speechSynthesis.speak(msg);
+                        output.textContent = xhr.responseText;
+                        window.scrollTo(0,document.body.scrollHeight);
+                    }
+                    temp_msg = output.textContent || '';
+                }, 1000);
+            })(temp_msg);
     }
 });
