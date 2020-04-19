@@ -8,6 +8,7 @@ app.ColActionView = Backbone.View.extend({
         'click .new_one': 'create',
         'click .create_new_build': 'display_input',
         'click .launch': 'launch',
+        'click .test_audio': 'testAudio',
         'blur .build_order_name': 'fetch_actions',
         'blur .dropdown': 'fetch_actions',
         'blur #new_build_name': 'create_new_build_order',
@@ -135,5 +136,11 @@ app.ColActionView = Backbone.View.extend({
                     temp_msg = output.textContent || '';
                 }, 1000);
             })(temp_msg);
+    },
+    testAudio: function() {
+        var msg = new SpeechSynthesisUtterance("Test audio");
+        var voices = window.speechSynthesis.getVoices();
+        msg.voice = voices.filter(function(voice) { return voice.name == 'Google US English'; })[0];
+        window.speechSynthesis.speak(msg);
     }
 });
