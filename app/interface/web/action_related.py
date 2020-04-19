@@ -12,6 +12,7 @@ from app.infrastructure.db.action_model import Action
 from app.infrastructure.db.build_order import BuildOrder
 from app.infrastructure.log import logger
 from app.infrastructure.connector.db_fixed_action_connector import DbFixedActionConnector
+from app.infrastructure.connector.db_repetitive_action_connector import DbRepetitiveActionConnector
 from app.interface.web.task import async_task
 from app.domain.service.main_service import MainService
 
@@ -103,8 +104,9 @@ def run(queue: Queue, queue_from_client: Queue):
 def stream_run():
     build_order_name = request.args['name']
     fixed_action_connector = DbFixedActionConnector(build_order_name)
+    repetitive_action_connector = DbRepetitiveActionConnector(build_order_name)
     def gen():
-        service = MainService(fixed_action_connector)
+        service = MainService(fixed_action_connector, repetitive_action_connector)
         service.run()
         while True:
             lst = service.get_action_from_queue()
