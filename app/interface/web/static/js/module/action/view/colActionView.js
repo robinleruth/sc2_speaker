@@ -9,11 +9,14 @@ app.ColActionView = Backbone.View.extend({
         'click .create_new_build': 'display_input',
         'click .launch': 'launch',
         'click .test_audio': 'testAudio',
+        'click .toogle_voice': 'toogleVoice',
         'blur .build_order_name': 'fetch_actions',
         'blur .dropdown': 'fetch_actions',
         'blur #new_build_name': 'create_new_build_order',
     },
     initialize: function(){
+        this.english_voice = true;
+        this.voice_name = 'Google US English';
         this.listenTo(this.collection, 'add', this.addOne);
         this.listenTo(this.collection, 'remove', this.render);
         this.listenTo(this.collection, 'reset', this.addAll);
@@ -128,7 +131,8 @@ app.ColActionView = Backbone.View.extend({
                         msg_to_speak = msg_to_speak.replace(/\d{1}:\d{2}:\d{2} : /g, '')
                         var msg = new SpeechSynthesisUtterance(msg_to_speak);
                         var voices = window.speechSynthesis.getVoices();
-                        msg.voice = voices.filter(function(voice) { return voice.name == 'Google US English'; })[0];
+                        let that = this;
+                        msg.voice = voices.filter(function(voice) { return voice.name == that.voice_name; })[0];
                         window.speechSynthesis.speak(msg);
                         output.textContent = xhr.responseText;
                         window.scrollTo(0,document.body.scrollHeight);
@@ -140,7 +144,16 @@ app.ColActionView = Backbone.View.extend({
     testAudio: function() {
         var msg = new SpeechSynthesisUtterance("Test audio");
         var voices = window.speechSynthesis.getVoices();
-        msg.voice = voices.filter(function(voice) { return voice.name == 'Google US English'; })[0];
+        let that = this;
+        msg.voice = voices.filter(function(voice) { return voice.name == that.voice_name; })[0];
         window.speechSynthesis.speak(msg);
+    },
+    toogleVoice: function() {
+        if(this.english_voice === true){
+            this.voice_name = 'Google US English';
+        } else {
+            this.voice_name = 'Google français';
+        }
+        this.english_voice = !this.english_voice;
     }
 });
