@@ -123,6 +123,7 @@ app.ColActionView = Backbone.View.extend({
                 }
                 return result;
             }
+            let that = this;
             (function(temp_msg){
                 setInterval(function(){
                     // output.textContent = xhr.responseText;
@@ -131,7 +132,6 @@ app.ColActionView = Backbone.View.extend({
                         msg_to_speak = msg_to_speak.replace(/\d{1}:\d{2}:\d{2} : /g, '')
                         var msg = new SpeechSynthesisUtterance(msg_to_speak);
                         var voices = window.speechSynthesis.getVoices();
-                        let that = this;
                         msg.voice = voices.filter(function(voice) { return voice.name == that.voice_name; })[0];
                         window.speechSynthesis.speak(msg);
                         output.textContent = xhr.responseText;
