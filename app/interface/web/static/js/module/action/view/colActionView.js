@@ -154,6 +154,7 @@ app.ColActionView = Backbone.View.extend({
         } else {
             this.voice_name = 'Google français';
         }
+        alert(this.voice_name);
         this.english_voice = !this.english_voice;
     }
 });
