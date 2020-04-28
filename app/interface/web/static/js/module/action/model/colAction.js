@@ -10,5 +10,5 @@ app.ColAction = Backbone.Collection.extend({
     url: function(){
         return '/api/v1/actions/' + this.build_order;
     },
-    comparator: 'time'
+    // comparator: 'time'
 });

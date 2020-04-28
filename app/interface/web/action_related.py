@@ -71,6 +71,7 @@ def actions(build_order=None, _id=None):
         if request.method == 'GET':
             with transaction_context() as session:
                 lst = session.query(BuildOrder).filter_by(name=build_order).first().actions
+                lst = sorted(lst, key=lambda x: x.time)
                 lst = [i.serialize for i in lst]
             return jsonify(lst)
         elif request.method == 'POST':

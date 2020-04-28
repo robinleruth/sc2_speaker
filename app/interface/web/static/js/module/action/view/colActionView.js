@@ -67,8 +67,9 @@ app.ColActionView = Backbone.View.extend({
     },
     create: function(){
         this.collection.create();
-        var model = this.collection.last();
-        var first_model = this.collection.first();
+        var that = this;
+        var model = that.collection.last();
+        var first_model = that.collection.first();
         setTimeout(function(){
             model.set('build_order_id', first_model.get('build_order_id'));
             model.save();
