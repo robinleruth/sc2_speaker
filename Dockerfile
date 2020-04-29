@@ -3,6 +3,14 @@ FROM python:3.7-alpine
 RUN adduser -D speaker
 WORKDIR /home/speaker
 
+RUN apk update
+RUN apk add --no-cache libc-dev
+RUN apk add --no-cache gcc
+# RUN apk add --no-cache build-essential
+RUN pip install -U pip
+# RUN apk add --update --no-cache py3-numpy
+# ENV PYTHONPATH=/usr/lib/python3.7/site-packages
+
 COPY requirements.txt requirements.txt
 RUN python -m venv venv
 RUN venv/bin/pip install --upgrade pip
